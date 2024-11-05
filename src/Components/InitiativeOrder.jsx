@@ -1,16 +1,24 @@
-import Card from 'react-bootstrap/Card';
-import ListGroup from 'react-bootstrap/ListGroup';
+import React from 'react';
+import { ResponsiveContainer } from 'recharts';
 
-function InitiativeOrder() {
+const CharacterList = ({ characters = [] }) => {
+  // Sort characters by initiative in descending order
+  const sortedCharacters = [...characters].sort((a, b) => b.initiative - a.initiative);
+
   return (
-    <Card style={{ width: '18rem' }}>
-      <ListGroup variant="flush">
-        <ListGroup.Item>Cras justo odio</ListGroup.Item>
-        <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-        <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
-      </ListGroup>
-    </Card>
+    <div className="col-span-2">
+      <h2 className="text-lg font-semibold mb-4 text-gray-100">Initiative Order</h2>
+      <div className="bg-gray-800 bg-opacity-50 backdrop-blur-md shadow-lg border-2 border-green-700 p-4 rounded-md">
+        <ul className="space-y-2 list-disc list-inside">
+          {sortedCharacters.map((character, index) => (
+            <li key={index} className="flex p-2 bg-gray-800 rounded">
+              <span className="font-semibold">{character.initiative}: {character.name}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
-}
+};
 
-export default InitiativeOrder;
+export default CharacterList;

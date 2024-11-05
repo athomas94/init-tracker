@@ -14,13 +14,13 @@ const SIDEBAR_ITEMS = [
         name: "Party", 
         icon: Wand, 
         color: "#8B5CF6", 
-        href: "/products" 
+        href: "/party" 
     },
 	{ 
         name: "Enemies", 
         icon: Skull, 
         color: "#EC4899", 
-        href: "/users" 
+        href: "/enemies" 
     },
 ];
 
