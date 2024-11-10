@@ -10,9 +10,10 @@ function App() {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:5000/message")
-      .then((res) => res.json())
-      .then((data) => setMessage(data.message));
+    fetch('http://localhost:5000/message')
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error('Error fetching:', error));
   }, []);
 
   return (
