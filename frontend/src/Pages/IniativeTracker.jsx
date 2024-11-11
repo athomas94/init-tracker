@@ -37,7 +37,7 @@ const IniativeTracker = () => {
           <OnDeck character={secondCharacter}/>
           <InitiativeOrder characters={characters}/>
         </div>
-    </main>
+      </main>
     </div>
   )
 }

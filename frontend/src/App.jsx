@@ -6,9 +6,6 @@ import Enemies from './Pages/Enemies'
 import Sidebar from './Components/Sidebar'
 
 function App() {
-  
-  const [message, setMessage] = useState("");
-
   useEffect(() => {
     fetch('http://localhost:5000/message')
       .then(response => response.json())

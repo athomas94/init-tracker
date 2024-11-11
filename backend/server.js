@@ -22,13 +22,12 @@ app.get('/message', (req, res) => {
     res.json({message: 'Success From Server'});    
 });
 
-// Route to fetch all characters
+// Fetch all characters in initiative
 app.get('/api/characters', (req, res) => {
     const query = 'SELECT * FROM "Init Tracker"'; 
     
     client.query(query)
       .then(result => {
-        console.log(result.rows);
         res.json(result.rows); // Send back rows of character data
       })
       .catch(err => {
@@ -36,6 +35,21 @@ app.get('/api/characters', (req, res) => {
         res.status(500).json({ error: 'Failed to fetch characters' });
       });
   });
+
+// Fetch all player characters
+app.get('/api/party', (req, res) => {
+  const query = 'SELECT * FROM "Party"'; 
+  
+  client.query(query)
+    .then(result => {
+      console.log(result.rows);
+      res.json(result.rows); // Send back rows of character data
+    })
+    .catch(err => {
+      console.error('Error fetching party:', err);
+      res.status(500).json({ error: 'Failed to fetch party' });
+    });
+});
 
 app.listen(process.env.PORT, () => {
     console.log(`Server started on port ${process.env.PORT}`);
