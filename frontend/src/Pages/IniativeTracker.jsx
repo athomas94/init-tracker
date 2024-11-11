@@ -24,7 +24,7 @@ const IniativeTracker = () => {
   }, []);
 
   // Sort characters by initiative in descending order
-  const sortedCharacters = [...characters].sort((a, b) => b.initiative - a.initiative);
+  const sortedCharacters = [...characters].sort((a, b) => b.Initiative - a.Initiative);
   const firstCharacter = sortedCharacters[0];
   const secondCharacter = sortedCharacters[1];
   return (
@@ -35,7 +35,7 @@ const IniativeTracker = () => {
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
           <InCombat character={firstCharacter} />
           <OnDeck character={secondCharacter}/>
-          <InitiativeOrder characters={characters}/>
+          <InitiativeOrder characters={sortedCharacters}/>
         </div>
       </main>
     </div>
