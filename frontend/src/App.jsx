@@ -4,6 +4,7 @@ import IniativeTracker from './Pages/IniativeTracker'
 import Party from './Pages/Party'
 import Enemies from './Pages/Enemies'
 import Sidebar from './Components/Sidebar'
+import DMTracker from './Pages/DMTracker'
 
 function App() {
   useEffect(() => {
@@ -25,6 +26,7 @@ function App() {
         <Route path="/" element={<IniativeTracker />} />
         <Route path="/party" element={<Party />} />
         <Route path="/enemies" element={<Enemies />} />
+        <Route path="/dmtracker" element={<DMTracker />} />
       </Routes>
     </div>
   )

@@ -21,7 +21,33 @@ function CharacterCard({ character }) {
           <ul className="w-full border-t border-gray-600 divide-y divide-gray-600 mt-2">
             <li className="flex items-center p-2 text-gray-100">
               <Heart className="inline-block mr-2" />
-              {character["HP Current"]}/{character["HP Max"]}
+              {character.Type === "NPC" ? (
+              // Calculate HP percentage for NPC
+              (() => {
+                const hpPercentage = (character["HP Current"] / character["HP Max"]) * 100;
+                let healthStatus = "";
+                let healthClass = "";
+
+                if (hpPercentage >= 90) {
+                  healthStatus = "Healthy";
+                  healthClass = "text-green-500";
+                } else if (hpPercentage >= 50) {
+                  healthStatus = "Hurt";
+                  healthClass = "text-yellow-500";
+                } else if (hpPercentage >= 25) {
+                  healthStatus = "Bloodied";
+                  healthClass = "text-orange-500";
+                } else {
+                  healthStatus = "ded";
+                  healthClass = "text-red-500 font-bold";
+                }
+
+                return <span className={healthClass}>{healthStatus}</span>;
+              })()
+            ) : (
+              // Display actual HP numbers for PC
+              `${character["HP Current"]} / ${character["HP Max"]}`
+            )}
             </li>
             <li className="flex items-center p-2 text-gray-100">
               <Shield className="inline-block mr-2" />
