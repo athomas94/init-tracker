@@ -51,6 +51,60 @@ app.get('/api/party', (req, res) => {
     });
 });
 
+//Update Health in Postgres
+app.post('/api/update-health', async (req, res) => {
+  console.log('POST request received at /api/update-health');
+  console.log('Request Body:', req.body);
+
+  const { characterId, changeHP, actionType } = req.body; // actionType: 'damage' or 'healing'
+
+  if (!characterId || changeHP === undefined || !actionType) {
+    console.log('Invalid data received');
+    return res.status(400).json({ message: 'Invalid data' });
+  }
+
+  // Convert changeHP to a number to prevent string issues
+  const numericChangeHP = Number(changeHP);
+
+  // Check if the conversion is successful
+  if (isNaN(numericChangeHP)) {
+    console.log('Invalid changeHP value:', changeHP);
+    return res.status(400).json({ message: 'Invalid health change value' });
+  }
+
+  // Determine if the change is damage or healing
+  const healthChange = actionType === 'healing' ? numericChangeHP : -numericChangeHP;
+
+  try {
+    // Fetch current HP to update
+    const result = await client.query(
+      'SELECT "HP Current" FROM "Init Tracker" WHERE "Name" = $1',
+      [characterId]
+    );
+
+    if (result.rowCount === 0) {
+      console.log('Character not found in database');
+      return res.status(404).json({ message: 'Character not found' });
+    }
+
+    // Calculate new HP
+    const currentHP = Number(result.rows[0]["HP Current"]);
+    const newHP = currentHP + healthChange;
+
+    // Update the character's health in the database
+    const updateResult = await client.query(
+      'UPDATE "Init Tracker" SET "HP Current" = $1 WHERE "Name" = $2 RETURNING *',
+      [newHP, characterId]
+    );
+
+    console.log('Health updated successfully', updateResult.rows[0]);
+    res.json({ message: 'Health updated successfully', character: updateResult.rows[0] });
+  } catch (error) {
+    console.error('Error updating health:', error);
+    res.status(500).json({ message: 'Internal server error', error: error.message });
+  }
+});
+
 app.listen(process.env.PORT, () => {
     console.log(`Server started on port ${process.env.PORT}`);
 });
