@@ -56,14 +56,14 @@ app.post('/api/update-health', async (req, res) => {
   console.log('POST request received at /api/update-health');
   console.log('Request Body:', req.body);
 
-  const { characterId, changeHP, actionType } = req.body; // actionType: 'damage' or 'healing'
+  const { characterId, changeHP, actionType } = req.body; // actionType = healing or damage
 
   if (!characterId || changeHP === undefined || !actionType) {
     console.log('Invalid data received');
     return res.status(400).json({ message: 'Invalid data' });
   }
 
-  // Convert changeHP to a number to prevent string issues
+  // Ensure changeHP is a number
   const numericChangeHP = Number(changeHP);
 
   // Check if the conversion is successful

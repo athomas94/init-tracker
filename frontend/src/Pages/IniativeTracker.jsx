@@ -12,10 +12,10 @@ const IniativeTracker = () => {
   useEffect(() => {
     // Fetch characters from the backend
     fetch('http://localhost:5000/api/characters')
-      .then((response) => response.json()) // Parse the JSON response
+      .then((response) => response.json())
       .then((data) => {
-        setCharacters(data); // Store the data in state
-        setLoading(false); // Stop loading
+        setCharacters(data);
+        setLoading(false);
       })
       .catch((error) => {
         console.error('Error fetching characters:', error);

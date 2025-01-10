@@ -8,12 +8,12 @@ const IniativeTracker = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch characters from the backend
+    // Fetch characters from db
     fetch('http://localhost:5000/api/characters')
-      .then((response) => response.json()) // Parse the JSON response
+      .then((response) => response.json())
       .then((data) => {
-        setCharacters(data); // Store the data in state
-        setLoading(false); // Stop loading
+        setCharacters(data);
+        setLoading(false);
       })
       .catch((error) => {
         console.error('Error fetching characters:', error);
@@ -23,8 +23,6 @@ const IniativeTracker = () => {
 
   // Sort characters by initiative in descending order
   const sortedCharacters = [...characters].sort((a, b) => b.Initiative - a.Initiative);
-  const firstCharacter = sortedCharacters[0];
-  const secondCharacter = sortedCharacters[1];
   return (
     <div className='flex-1 overflow-auto relative z-10 h-screen'>
       <Header title="Initiative!" />

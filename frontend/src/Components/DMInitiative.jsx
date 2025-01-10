@@ -39,20 +39,20 @@ const DMInitiative = ({ characters = [] }) => {
 
     console.log("currentHP:", currentHP, "changeHP:", changeHP, "newHP:", newHP);
 
-    // Update the character's HP in the state
+    // Update the character's HP
     character.currentHP = newHP;
-    character.inputHP = 0;  // Reset input field
+    character.inputHP = 0;  // Reset after submit
     setCharacterData(updatedCharacters);
 
-    // Send the updated health to the backend
-    fetch('http://localhost:5000/api/update-health', {  // Adjust URL if necessary
+    // Send the updated health to the db
+    fetch('http://localhost:5000/api/update-health', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         characterId: character.Name,
-        changeHP: changeHP,  // Ensure newHP is numeric
+        changeHP: changeHP, 
         actionType,
       }),
     })
