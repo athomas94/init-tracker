@@ -52,8 +52,8 @@ app.get('/api/party', (req, res) => {
 });
 
 //Update Health in Postgres
-app.post('/api/update-health', async (req, res) => {
-  console.log('POST request received at /api/update-health');
+app.put('/api/update-health', async (req, res) => {
+  console.log('Put request received at /api/update-health');
   console.log('Request Body:', req.body);
 
   const { characterId, changeHP, actionType } = req.body; // actionType = healing or damage
@@ -97,7 +97,14 @@ app.post('/api/update-health', async (req, res) => {
       [newHP, characterId]
     );
 
-    console.log('Health updated successfully', updateResult.rows[0]);
+    // Update the character's health in the party view
+    const updateCharacter = await client.query(
+      'UPDATE "Party" SET "HP Current" = $1 WHERE "Name" = $2',
+        [newHP, characterId]
+    );
+
+    console.log('Initiative health updated successfully', updateResult.rows[0]);
+    console.log('Party health updated successfully', updateCharacter.rows[0]);
     res.json({ message: 'Health updated successfully', character: updateResult.rows[0] });
   } catch (error) {
     console.error('Error updating health:', error);

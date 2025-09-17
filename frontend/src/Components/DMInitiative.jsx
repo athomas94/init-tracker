@@ -46,7 +46,7 @@ const DMInitiative = ({ characters = [] }) => {
 
     // Send the updated health to the db
     fetch('http://localhost:5000/api/update-health', {
-      method: 'POST',
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },

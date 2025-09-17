@@ -25,5 +25,4 @@ dist-ssr
 
 # Misc Files
 eslint.config.js
-package-lock.js
 *.config.js
